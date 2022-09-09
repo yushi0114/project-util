@@ -6,8 +6,8 @@ import { deldir, genDateString, moveFile, zipDir } from './util'
 const PROJECT_DIR = '../melib'
 const BUNDLE_DIRNAME = 'build'
 const ZIP_DIRS = [
-  'melib-corp-service',
-  'melib-main-service',
+  'melib-product-service',
+  'melib-req-service',
   'melib-sys-service',
 ]
 
@@ -52,7 +52,10 @@ const buildZipPromises = BUILD_ZIP_DIR.map((dir) => {
   })
 })
 
+const moveShellPromise = moveFile(path.join(PROJECT_DIR, './go.sh'), path.join(BUNDLE_DIR, './go.sh'))
+
 await Promise.all([
   ...zipPromises,
   ...buildZipPromises,
+  moveShellPromise,
 ])
