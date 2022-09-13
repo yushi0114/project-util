@@ -1,9 +1,9 @@
-import { createReadStream, createWriteStream, existsSync } from 'fs'
-import { readdir, rmdir, stat, unlink } from 'fs/promises'
+import { createReadStream, createWriteStream, existsSync, readFileSync, writeFileSync } from 'fs'
+import { mkdir, readdir, rmdir, stat, unlink } from 'fs/promises'
 import path from 'path'
 import { zip } from 'compressing'
 
-export function deldir(url: string) {
+export function deldir(url: string): Promise<any> {
   if (existsSync(url)) {
     return readdir(url)
       .then((items) => {
@@ -25,11 +25,11 @@ export function deldir(url: string) {
   return Promise.resolve('url not exist')
 }
 
-export function zipDir(path: string) {
-  return zip.compressDir(path, `${path}.zip`)
+export function zipDir(path: string, to?: string) {
+  return zip.compressDir(path, to || `${path}.zip`)
 }
 
-export function moveFile(from: string, to: string) {
+export function copyFile(from: string, to: string) {
   return new Promise((resolve, reject) => {
     const readStream = createReadStream(from)
     const writeStream = createWriteStream(to)
@@ -39,6 +39,25 @@ export function moveFile(from: string, to: string) {
     readStream.on('error', reject)
 
     writeStream.on('error', reject)
+  })
+}
+
+export async function copyDir(from: string, to: string) {
+  if (existsSync(to))
+    await deldir(to)
+
+  await mkdir(to)
+
+  const paths = await readdir(from)
+  paths.forEach(async (p) => {
+    const _from = `${from}/${p}`
+    const _to = `${to}/${p}`
+
+    const st = await stat(_from)
+    if (st.isFile())
+      await writeFileSync(_to, readFileSync(_from))
+    else if (st.isDirectory())
+      await copyDir(_from, _to)
   })
 }
 
