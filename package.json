@@ -36,6 +36,7 @@
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
+    "doc": "esno src/doc.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
@@ -43,6 +44,7 @@
     "@antfu/eslint-config": "^0.25.1",
     "@antfu/ni": "^0.16.2",
     "@antfu/utils": "^0.5.2",
+    "@types/jsdoc-to-markdown": "^7.0.3",
     "@types/node": "^18.0.0",
     "bumpp": "^8.2.1",
     "eslint": "^8.18.0",
@@ -55,6 +57,7 @@
     "vitest": "^0.15.1"
   },
   "dependencies": {
-    "compressing": "^1.6.2"
+    "compressing": "^1.6.2",
+    "jsdoc-to-markdown": "^7.1.1"
   }
 }
