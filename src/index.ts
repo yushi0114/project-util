@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import { mkdir, unlink } from 'fs/promises'
 import path from 'path'
-import { copyDir, copyFile, deldir, genDateString, zipDir } from './util'
+import { deldir, genDateString, moveFile, zipDir } from './util'
 
 const PROJECT_DIR = '../melib'
 const BUNDLE_DIRNAME = 'build'
@@ -23,18 +23,16 @@ await mkdir(BUNDLE_DIR)
 const zipPromises = ZIP_DIRS.map((dir) => {
   const from = path.join(PROJECT_DIR, dir)
   const to = path.join(BUNDLE_DIR, `${dir}.${dateString}.zip`)
-
-  return deldir(`${from}_tmp`)
-    // .then(() => copyDir(from, `${from}_tmp`))
-    // .then(() => deldir(path.join(`${from}_tmp`, '/.git')))
-    .then(() => zipDir(from, to))
+  return zipDir(from)
+    .then(() => moveFile(`${from}.zip`, to))
+    .then(() => unlink(`${from}.zip`))
 })
 
 const buildZipPromises = BUILD_ZIP_DIR.map((dir) => {
   const from = path.join(PROJECT_DIR, dir)
 
   const buildPromise = new Promise((resolve, reject) => {
-    exec(`cd ${from} && npm run build`, (err, stdout) => {
+    exec(`cd ${from} & npm run build`, (err, stdout) => {
       if (err) {
         reject(err)
       }
@@ -48,13 +46,13 @@ const buildZipPromises = BUILD_ZIP_DIR.map((dir) => {
   return buildPromise.then(() => {
     const from = path.join(PROJECT_DIR, dir, dir)
     const to = path.join(BUNDLE_DIR, `${dir}.${dateString}.zip`)
-    return zipDir(from, to)
-      .then(() => copyFile(`${from}.zip`, to))
+    return zipDir(from)
+      .then(() => moveFile(`${from}.zip`, to))
       .then(() => unlink(`${from}.zip`))
   })
 })
 
-const moveShellPromise = copyFile(path.join(PROJECT_DIR, './go.sh'), path.join(BUNDLE_DIR, './go.sh'))
+const moveShellPromise = moveFile(path.join(PROJECT_DIR, './go.sh'), path.join(BUNDLE_DIR, './go.sh'))
 
 await Promise.all([
   ...zipPromises,
