@@ -1,63 +1,42 @@
 {
-  "name": "utils",
+  "name": "product-util",
   "type": "module",
   "version": "0.0.0",
-  "packageManager": "pnpm@7.2.1",
   "description": "",
   "author": "binyu1231 <binyu1231@hotmail.com>",
   "license": "MIT",
   "keywords": [],
   "sideEffects": false,
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
-    }
-  },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*",
-        "./dist/index.d.ts"
-      ]
-    }
-  },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "dev": "unbuild --stub",
-    "lint": "eslint .",
-    "prepublishOnly": "nr build",
-    "release": "bumpp && npm publish",
-    "start": "esno src/index.ts",
+    "release": "npm run build && npm run deploy",
+    "build": "esno src/build.ts",
+    "deploy": "esno src/deploy.ts",
     "doc": "esno src/doc.ts",
-    "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "demo": "esno src/demo.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.1",
     "@antfu/ni": "^0.16.2",
     "@antfu/utils": "^0.5.2",
+    "@types/fs-extra": "^9.0.13",
     "@types/jsdoc-to-markdown": "^7.0.3",
     "@types/node": "^18.0.0",
     "bumpp": "^8.2.1",
     "eslint": "^8.18.0",
     "esno": "^0.16.3",
-    "pnpm": "^7.2.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.7.4",
     "unbuild": "^0.7.4",
-    "vite": "^2.9.12",
-    "vitest": "^0.15.1"
+    "vite": "^2.9.12"
   },
   "dependencies": {
     "compressing": "^1.6.2",
-    "jsdoc-to-markdown": "^7.1.1"
+    "dotenv": "^16.0.2",
+    "fs-extra": "^10.1.0",
+    "jsdoc-to-markdown": "^7.1.1",
+    "node-ssh": "^13.0.0"
   }
 }
