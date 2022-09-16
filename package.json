@@ -1,9 +1,9 @@
 {
   "name": "product-util",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "author": "binyu1231 <binyu1231@hotmail.com>",
+  "author": "binyu1231",
   "license": "MIT",
   "keywords": [],
   "sideEffects": false,
