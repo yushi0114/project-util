@@ -21,28 +21,31 @@ $ npm run release # npm run build & npm run deploy
 
 ## 文件结构
 
+> e.g. melib
+
 ``` bash
 # before
 /
 |- project-util/
 |- melib/
-    |- melib-corp-service/
+    |- melib-req-service/
     |- melib-sys-service/
-    |- melib-main-service/
+    |- melib-product-service/
     |- melib-web/
 
 # after
 /
 |- project-util/
     |- dist/
-        |- melib-corp-service.MMDD-HHmm.zip/
+        |- melib-req-service.MMDD-HHmm.zip/
         |- melib-sys-service.MMDD-HHmm.zip/
-        |- melib-main-service.MMDD-HHmm.zip/
+        |- melib-product-service.MMDD-HHmm.zip/
         |- melib-web.MMDD-HHmm.zip/
+        |- go.sh # 远程服务器执行脚本 pm2 stop -> rm old -> unzip -> pm2 start
 |- melib/
-    |- melib-corp-service/
+    |- melib-req-service/
     |- melib-sys-service/
-    |- melib-main-service/
+    |- melib-product-service/
     |- melib-web/
 
 
