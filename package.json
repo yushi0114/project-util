@@ -12,15 +12,18 @@
   ],
   "scripts": {
     "release": "npm run build && npm run deploy",
+    "start": "esno src/start.ts",
     "build": "esno src/build.ts",
     "deploy": "esno src/deploy.ts",
     "doc": "esno src/doc.ts",
-    "demo": "esno src/demo.ts"
+    "demo": "esno src/demo.ts",
+    "font": "esno src/font.ts"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.25.1",
     "@antfu/ni": "^0.16.2",
     "@antfu/utils": "^0.5.2",
+    "@types/fontmin": "^0.9.0",
     "@types/fs-extra": "^9.0.13",
     "@types/jsdoc-to-markdown": "^7.0.3",
     "@types/node": "^18.0.0",
@@ -35,6 +38,7 @@
   "dependencies": {
     "compressing": "^1.6.2",
     "dotenv": "^16.0.2",
+    "fontmin": "^0.9.9",
     "fs-extra": "^10.1.0",
     "jsdoc-to-markdown": "^7.1.1",
     "node-ssh": "^13.0.0"

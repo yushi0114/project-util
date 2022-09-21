@@ -1,7 +1,17 @@
 import { createReadStream, createWriteStream, existsSync } from 'fs'
-import { mkdir, readdir, rmdir, stat, unlink } from 'fs/promises'
+import { mkdir as mkDir, readdir, rmdir, stat, unlink } from 'fs/promises'
 import path from 'path'
+import { fileURLToPath } from 'url'
 import { zip } from 'compressing'
+
+export const __filename = (metaurl: string) => fileURLToPath(metaurl)
+export const __dirname = (metaurl: string) => path.dirname(__filename(metaurl))
+
+export function mkdir(url: string) {
+  if (!existsSync(url))
+    return mkDir(url)
+  return Promise.resolve()
+}
 
 export function deldir(url: string) {
   if (!existsSync(url))
@@ -31,7 +41,7 @@ export async function copyDir(from: string, to: string) {
   if (existsSync(to))
     await deldir(to)
 
-  await mkdir(to)
+  await mkDir(to)
 
   const items = await readdir(from)
   items.forEach(async (item) => {
