@@ -23,7 +23,7 @@ async function upload() {
 }
 
 function execShell() {
-  return ssh.execCommand('sh ./go.sh', { cwd: process.env.SSH_REMOTE_DIR })
+  return ssh.execCommand('chmod a+x ./go.sh & sh ./go.sh', { cwd: process.env.SSH_REMOTE_DIR })
 }
 
 function deploy() {

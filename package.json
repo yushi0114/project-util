@@ -11,10 +11,12 @@
     "dist"
   ],
   "scripts": {
-    "release": "npm run build && npm run deploy",
+    "release": "npm run build --env melib && npm run deploy --env melib",
     "start": "esno src/start.ts",
-    "build": "esno src/build.ts",
-    "deploy": "esno src/deploy.ts",
+    "build:melib": "esno src/build.ts --env melib",
+    "build:glib": "esno src/build.ts --env glib",
+    "deploy:melib": "esno src/deploy.ts --env melib",
+    "deploy:glib": "esno src/deploy.ts --env glib",
     "doc": "esno src/doc.ts",
     "demo": "esno src/demo.ts",
     "font": "esno src/font.ts"
