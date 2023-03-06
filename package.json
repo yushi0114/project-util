@@ -1,9 +1,9 @@
 {
   "name": "product-util",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "",
-  "author": "binyu1231",
+  "author": "yushi0114",
   "license": "MIT",
   "keywords": [],
   "sideEffects": false,
@@ -19,6 +19,8 @@
     "deploy:glib": "esno src/deploy.ts --env glib",
     "build:dms": "esno src/build.ts --env dms",
     "deploy:dms": "esno src/deploy.ts --env dms",
+    "build:clib": "esno src/build.ts --env clib",
+    "deploy:clib": "esno src/deploy.ts --env clib",
     "doc": "esno src/doc.ts",
     "demo": "esno src/demo.ts",
     "font": "esno src/font.ts"
